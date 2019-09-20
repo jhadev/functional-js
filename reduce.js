@@ -30,6 +30,6 @@ let output = reduce(
   runOnInput,
   2
 );
-output = reduce([multiplyByTwo, addThree, divideByFive], runOnInput, 1);
+output = reduce([multiplyByTwo, addThree, divideByFive], runOnInput, 11);
 
 console.log(output);
