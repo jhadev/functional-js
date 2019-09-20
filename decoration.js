@@ -18,7 +18,7 @@ const secondResult = multiplyByTwo(4);
 console.log(firstResult);
 console.log(secondResult);
 
-// partial application
+// partial application HUGE IN FUNCTIONAL PROGRAMMING
 
 const prefillFunction = (func, prefilledValue) => {
   // takes a function to run and value to store here - value will be the second number of arithmetic equation
@@ -72,3 +72,19 @@ const toTheSecondPower = prefillFunctionInOneLine(dispatch('**'), 2);
 const fiveSquared = toTheSecondPower(5);
 
 console.log(fiveSquared);
+
+// this is fucked
+
+const loopThis = returnedNum => timesToRun => {
+  let num = 0;
+  for (let i = 0; i < timesToRun; i++) {
+    num += returnedNum;
+  }
+  return num;
+};
+
+const sumOfNumberIfLoopsRunsXTimes = loopThis(
+  prefillFunctionInOneLine(dispatch('*'), 2)(4)
+)(5);
+
+console.log(sumOfNumberIfLoopsRunsXTimes);
