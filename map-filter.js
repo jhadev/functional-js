@@ -1,9 +1,12 @@
+// create map or filter
+
 const create = type => {
   if (type === 'map') {
+    //
     return array => func => {
       let newArray = [];
       for (let i = 0; i < array.length; i++) {
-        newArray[i] = func(array[i]);
+        newArray = [...newArray, func(array[i])];
       }
 
       return newArray;
@@ -12,8 +15,8 @@ const create = type => {
     return array => func => {
       let newArray = [];
       for (let i = 0; i < array.length; i++) {
-        const result = func(array[i]);
-        if (result) {
+        const isTrue = func(array[i]);
+        if (isTrue) {
           newArray.push(array[i]);
         }
       }
@@ -44,7 +47,7 @@ const rockers = [
   }
 ];
 
-const numbers = [1, 2, 3, 4, 5];
+// map
 
 const map = create('map');
 
@@ -55,10 +58,6 @@ console.log(onlyName);
 const onlyOccupation = map(rockers)(({ occupation }) => occupation);
 
 console.log(onlyOccupation);
-
-const timesTen = map(numbers)(x => x * 10);
-
-console.log(timesTen);
 
 const cool = map(rockers)(rocker => {
   if (rocker.name.includes('Rivers')) {
@@ -71,19 +70,30 @@ console.log(cool);
 
 console.log(rockers);
 
-const asArrays = map(rockers)(({ name, occupation, deceased }) => [
+const rockersAsArrays = map(rockers)(({ name, occupation, deceased }) => [
   name,
   occupation,
   deceased
 ]);
 
-console.log(asArrays);
+console.log(rockersAsArrays);
+
+const rockersAsMaps = map(rockers)(rocker => {
+  const rockerMap = new Map();
+  rockerMap.set('name', rocker.name);
+  rockerMap.set('band', rocker.band);
+  return rockerMap;
+});
+
+console.log(rockersAsMaps);
 
 const rockerInsideRocker = map(rockers)(rocker => {
   return { rocker };
 });
 
 console.log(rockerInsideRocker);
+
+// filter
 
 const filter = create('filter');
 
@@ -93,7 +103,7 @@ const withoutBradAndAlive = filter(rockers)(
 
 console.log(withoutBradAndAlive);
 
-let onlyKurt = filter(rockers)(rocker => rocker.name === 'Kurt Cobain');
-onlyKurt = map(onlyKurt)(rocker => rocker.name).toString();
+let onlyDeceased = filter(rockers)(rocker => rocker.deceased);
+onlyDeceased = map(onlyDeceased)(rocker => rocker.name);
 
-console.log(onlyKurt);
+console.log(onlyDeceased);

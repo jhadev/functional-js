@@ -73,7 +73,7 @@ const fiveSquared = toTheSecondPower(5);
 
 console.log(fiveSquared);
 
-// this is fucked
+// this is fucked... pointless but ¯\_(ツ)_/¯
 
 const loopThis = returnedNum => timesToRun => {
   let num = 0;
@@ -83,8 +83,8 @@ const loopThis = returnedNum => timesToRun => {
   return num;
 };
 
-const sumOfNumberIfLoopsRunsXTimes = loopThis(
-  prefillFunctionInOneLine(dispatch('*'), 2)(4)
-)(5);
+const eight = prefillFunctionInOneLine(dispatch('*'), 2)(4);
+
+const sumOfNumberIfLoopsRunsXTimes = loopThis(eight)(5);
 
 console.log(sumOfNumberIfLoopsRunsXTimes);
