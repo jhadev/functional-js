@@ -92,3 +92,8 @@ const withoutBradAndAlive = filter(rockers)(
 );
 
 console.log(withoutBradAndAlive);
+
+let onlyKurt = filter(rockers)(rocker => rocker.name === 'Kurt Cobain');
+onlyKurt = map(onlyKurt)(rocker => rocker.name).toString();
+
+console.log(onlyKurt);
