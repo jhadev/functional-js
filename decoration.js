@@ -73,7 +73,7 @@ const fiveSquared = toTheSecondPower(5);
 
 console.log(fiveSquared);
 
-// this is fucked... pointless but ¯\_(ツ)_/¯
+// this is pointless but ¯\_(ツ)_/¯
 
 const loopThis = returnedNum => timesToRun => {
   let num = 0;

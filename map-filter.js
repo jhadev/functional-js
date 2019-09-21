@@ -103,7 +103,12 @@ const withoutBradAndAlive = filter(rockers)(
 
 console.log(withoutBradAndAlive);
 
-let onlyDeceased = filter(rockers)(rocker => rocker.deceased);
-onlyDeceased = map(onlyDeceased)(rocker => rocker.name);
+// in english
+const thatAreDead = ({ deceased }) => deceased;
+const byJustTheName = ({ name }) => name;
 
-console.log(onlyDeceased);
+const RIP = filter(rockers)(thatAreDead);
+console.log(RIP);
+
+const nameTheDeadRockers = map(RIP)(byJustTheName);
+console.log(nameTheDeadRockers);
