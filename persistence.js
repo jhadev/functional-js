@@ -6,14 +6,17 @@ const outer = arr => {
   return callback => {
     // this is impure
     count += 1;
-    console.log(count);
-    for (let i = 0; i < arr.length; i++) {
-      if (count === 1) {
-        newArr.push(callback(arr[i]));
-      } else {
-        newArr[i] = callback(newArr[i]);
+    const recurse = index => {
+      if (index < arr.length) {
+        if (count === 1) {
+          newArr.push(callback(arr[index]));
+        } else {
+          newArr[index] = callback(newArr[index]);
+        }
+        recurse(index + 1);
       }
-    }
+    };
+    recurse(0);
     return newArr;
   };
 };

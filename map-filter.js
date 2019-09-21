@@ -5,22 +5,28 @@ const create = type => {
     //
     return array => func => {
       let newArray = [];
-      for (let i = 0; i < array.length; i++) {
-        newArray = [...newArray, func(array[i])];
-      }
-
+      const recurse = index => {
+        if (index < array.length) {
+          newArray = [...newArray, func(array[index])];
+          recurse(index + 1);
+        }
+      };
+      recurse(0);
       return newArray;
     };
   } else {
     return array => func => {
       let newArray = [];
-      for (let i = 0; i < array.length; i++) {
-        const isTrue = func(array[i]);
-        if (isTrue) {
-          newArray.push(array[i]);
+      const recurse = index => {
+        if (index < array.length) {
+          const isTrue = func(array[index]);
+          if (isTrue) {
+            newArray.push(array[index]);
+          }
+          recurse(index + 1);
         }
-      }
-
+      };
+      recurse(0);
       return newArray;
     };
   }
