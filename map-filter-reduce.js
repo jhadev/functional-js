@@ -14,7 +14,7 @@ const create = type => {
       recurse(0);
       return newArray;
     };
-  } else {
+  } else if (type === 'filter') {
     return array => func => {
       let newArray = [];
       const recurse = index => {
@@ -29,6 +29,19 @@ const create = type => {
       recurse(0);
       return newArray;
     };
+  } else if (type === 'reduce') {
+    return array => (func, accumulator) => {
+      const recurse = index => {
+        if (index < array.length) {
+          accumulator = func(accumulator, array[index]);
+          recurse(index + 1);
+        }
+      };
+      recurse(0);
+      return accumulator;
+    };
+  } else {
+    console.log('initialize with "map", "filter", or "reduce"');
   }
 };
 
@@ -49,6 +62,12 @@ const rockers = [
     name: 'Rivers Cuomo',
     occupation: 'Musician',
     band: 'Weezer',
+    deceased: false
+  },
+  {
+    name: 'Krist Novoselic',
+    occupation: 'Musician',
+    band: 'Nirvana',
     deceased: false
   }
 ];
@@ -77,7 +96,7 @@ const addGenres = map(rockers)(rocker => {
       ...rest,
       genre: ['Alternative Rock', 'Pop Rock']
     };
-  } else if (rocker.name.includes('Kurt')) {
+  } else if (rocker.band === 'Nirvana') {
     return {
       ...rest,
       genre: ['Grunge', 'Alternative Rock']
@@ -133,3 +152,48 @@ console.log(RIP);
 
 const nameTheDeadRockers = map(RIP)(byJustTheName);
 console.log(nameTheDeadRockers);
+
+// reduce
+
+const reduce = create('reduce');
+
+const numbers = [1, 2, 3, 4, 5];
+
+const sum = reduce(numbers)((a, b) => a + b, 0);
+
+console.log(sum);
+
+const merged = reduce(rockersAsArrays)((a, b) => [...a, ...b], []);
+
+console.log(merged);
+
+const mapByBand = reduce(rockers)((map, { band, ...props }) => {
+  if (map.has(band)) {
+    map.set(band, [{ ...map.get(band) }, { ...props }]);
+  } else {
+    map.set(band, { ...props });
+  }
+
+  return map;
+}, new Map());
+
+console.log(mapByBand);
+
+// more reduce
+
+const string = `tote bag literally authentic XOXO beard brunch twee Shoreditch mustache chambray mixtape Carles messenger bag street art DIY Schlitz semiotics freegan cornhole single-origin coffee Tonx High Life irony VHS put a bird on it drinking vinegar 8-bit`;
+
+const anObjectOfCharacterCounts = (obj, char) => {
+  if (char !== ' ') {
+    obj[char] = (obj[char] || 0) + 1;
+  }
+
+  return obj;
+};
+
+const countCharacters = reduce(string.toLowerCase())(
+  anObjectOfCharacterCounts,
+  {}
+);
+
+console.log(countCharacters);
