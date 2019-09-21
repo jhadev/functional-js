@@ -57,30 +57,45 @@ const rockers = [
 
 const map = create('map');
 
-const onlyName = map(rockers)(({ name }) => name.split(' '));
-
-console.log(onlyName);
-
-const onlyOccupation = map(rockers)(({ occupation }) => occupation);
-
-console.log(onlyOccupation);
-
-const cool = map(rockers)(rocker => {
-  if (rocker.name.includes('Rivers')) {
-    return rocker.occupation;
-  }
-  return rocker.name.toLowerCase();
+const firstAndLastNames = map(rockers)(rocker => {
+  const splitName = rocker.name.split(' ');
+  const [firstName, lastName] = splitName;
+  const { name, ...rest } = rocker;
+  return { firstName, lastName, ...rest };
 });
 
-console.log(cool);
+console.log(firstAndLastNames);
+
+const onlyBands = map(rockers)(({ band }) => band);
+
+console.log(onlyBands);
+
+const addGenres = map(rockers)(rocker => {
+  const { deceased, occupation, ...rest } = rocker;
+  if (rocker.name.includes('Rivers')) {
+    return {
+      ...rest,
+      genre: ['Alternative Rock', 'Pop Rock']
+    };
+  } else if (rocker.name.includes('Kurt')) {
+    return {
+      ...rest,
+      genre: ['Grunge', 'Alternative Rock']
+    };
+  } else if (rocker.name.includes('Brad')) {
+    return { ...rest, genre: ['Ska', 'Punk'] };
+  } else {
+    return rocker;
+  }
+});
+
+console.log(addGenres);
 
 console.log(rockers);
 
-const rockersAsArrays = map(rockers)(({ name, occupation, deceased }) => [
-  name,
-  occupation,
-  deceased
-]);
+const rockersAsArrays = map(rockers)(({ deceased, ...rest }) =>
+  Object.values(rest)
+);
 
 console.log(rockersAsArrays);
 
