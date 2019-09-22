@@ -83,11 +83,11 @@ const firstAndLastNames = map(rockers)(({ name, ...rest }) => {
   return { firstName, lastName, ...rest };
 });
 
-console.log(trace(), firstAndLastNames);
+trace(firstAndLastNames);
 
 const onlyBands = map(rockers)(({ band }) => band);
 
-console.log(trace(), onlyBands);
+trace(onlyBands);
 
 const addGenres = map(rockers)(rocker => {
   const { deceased, occupation, ...rest } = rocker;
