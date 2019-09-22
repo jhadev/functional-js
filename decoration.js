@@ -1,3 +1,5 @@
+const trace = require('./trace');
+
 const runOnce = convertMe => {
   let count = 0;
   return input => {
@@ -15,8 +17,8 @@ const multiplyByTwo = runOnce(x => x * 2);
 const firstResult = multiplyByTwo(10);
 const secondResult = multiplyByTwo(4);
 
-console.log(firstResult);
-console.log(secondResult);
+trace(firstResult);
+trace(secondResult);
 
 // partial application HUGE IN FUNCTIONAL PROGRAMMING
 
@@ -56,11 +58,11 @@ const multiplyByTwoAgain = prefillFunction(dispatch('*'), 2);
 
 const result = multiplyByTwoAgain(5);
 
-console.log(result);
+trace(result);
 
 const divideByThree = prefillFunction(dispatch('/'), 3);
 
-console.log(divideByThree(9));
+trace(divideByThree(9));
 
 // curried function no need to return the inner function from inside the function itself, it is being returned inline
 const prefillFunctionInOneLine = (func, prefilledValue) => input => {
@@ -71,7 +73,7 @@ const toTheSecondPower = prefillFunctionInOneLine(dispatch('**'), 2);
 
 const fiveSquared = toTheSecondPower(5);
 
-console.log(fiveSquared);
+trace(fiveSquared);
 
 // this is pointless but ¯\_(ツ)_/¯
 
@@ -87,4 +89,4 @@ const eight = prefillFunctionInOneLine(dispatch('*'), 2)(4);
 
 const sumOfNumberIfLoopsRunsXTimes = loopThis(eight)(5);
 
-console.log(sumOfNumberIfLoopsRunsXTimes);
+trace(sumOfNumberIfLoopsRunsXTimes);

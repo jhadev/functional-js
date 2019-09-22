@@ -1,3 +1,5 @@
+const trace = require('./trace');
+
 const outer = arr => {
   let count = 0;
   // this persists
@@ -27,8 +29,8 @@ const numbers = [1, 2, 3, 4, 5];
 const mutateLastResult = outer(numbers);
 
 const timesTwo = mutateLastResult(input => input * 2);
-console.log(timesTwo);
+trace(timesTwo);
 const timesTwoTimesThree = mutateLastResult(input => input * 3);
-console.log(timesTwoTimesThree);
+trace(timesTwoTimesThree);
 const timesTwoTimesThreeDividedByFour = mutateLastResult(input => input / 4);
-console.log(timesTwoTimesThreeDividedByFour);
+trace(timesTwoTimesThreeDividedByFour);

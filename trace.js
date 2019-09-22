@@ -1,6 +1,6 @@
 const path = require('path');
 
-function trace() {
+function trace(input) {
   const orig = Error.prepareStackTrace;
   Error.prepareStackTrace = (_, stack) => stack;
   const err = new Error();
@@ -13,7 +13,7 @@ function trace() {
       callee.getFileName()
     )}:${callee.getLineNumber()}\n`
   );
-  return 'trace\n';
+  console.log(input);
 }
 
 module.exports = trace;

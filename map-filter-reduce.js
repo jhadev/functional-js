@@ -108,15 +108,15 @@ const addGenres = map(rockers)(rocker => {
   }
 });
 
-console.log(trace(), addGenres);
+trace(addGenres);
 
-console.log(trace(), rockers);
+trace(rockers);
 
 const rockersAsArrays = map(rockers)(({ deceased, ...rest }) =>
   Object.values(rest)
 );
 
-console.log(trace(), rockersAsArrays);
+trace(rockersAsArrays);
 
 const rockersAsMaps = map(rockers)(rocker => {
   const rockerMap = new Map();
@@ -125,13 +125,13 @@ const rockersAsMaps = map(rockers)(rocker => {
   return rockerMap;
 });
 
-console.log(trace(), rockersAsMaps);
+trace(rockersAsMaps);
 
 const rockerInsideRocker = map(rockers)(rocker => {
   return { rocker };
 });
 
-console.log(trace(), rockerInsideRocker);
+trace(rockerInsideRocker);
 
 // filter
 
@@ -141,17 +141,17 @@ const withoutBradAndAlive = filter(rockers)(
   rocker => rocker.name !== 'Bradley Nowell' && !rocker.deceased
 );
 
-console.log(trace(), withoutBradAndAlive);
+trace(withoutBradAndAlive);
 
 // in english
 const thatAreDead = ({ deceased }) => deceased;
 const byJustTheName = ({ name }) => name;
 
 const RIP = filter(rockers)(thatAreDead);
-console.log(trace(), RIP);
+trace(RIP);
 
 const nameTheDeadRockers = map(RIP)(byJustTheName);
-console.log(trace(), nameTheDeadRockers);
+trace(nameTheDeadRockers);
 
 // reduce
 
@@ -161,11 +161,11 @@ const numbers = [1, 2, 3, 4, 5];
 
 const sum = reduce(numbers)((a, b) => a + b, 0);
 
-console.log(trace(), sum);
+trace(sum);
 
 const merged = reduce(rockersAsArrays)((a, b) => [...a, ...b], []);
 
-console.log(trace(), merged);
+trace(merged);
 
 const mapByBand = reduce(rockers)((map, { band, ...props }) => {
   if (map.has(band)) {
@@ -177,7 +177,7 @@ const mapByBand = reduce(rockers)((map, { band, ...props }) => {
   return map;
 }, new Map());
 
-console.log(trace(), mapByBand);
+trace(mapByBand);
 
 // more reduce
 
@@ -196,4 +196,4 @@ const countCharacters = reduce(string.toLowerCase())(
   {}
 );
 
-console.log(trace(), countCharacters);
+trace(countCharacters);
