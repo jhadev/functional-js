@@ -8,7 +8,7 @@ const create = type => {
       let newArray = [];
       const recurse = index => {
         if (index < array.length) {
-          newArray = [...newArray, func(array[index])];
+          newArray = [...newArray, func(array[index], index)];
           recurse(index + 1);
         }
       };
@@ -20,7 +20,7 @@ const create = type => {
       let newArray = [];
       const recurse = index => {
         if (index < array.length) {
-          const isTrue = func(array[index]);
+          const isTrue = func(array[index], index);
           if (isTrue) {
             newArray.push(array[index]);
           }
@@ -34,7 +34,7 @@ const create = type => {
     return array => (func, accumulator) => {
       const recurse = index => {
         if (index < array.length) {
-          accumulator = func(accumulator, array[index]);
+          accumulator = func(accumulator, array[index], index);
           recurse(index + 1);
         }
       };
@@ -85,9 +85,20 @@ const firstAndLastNames = map(rockers)(({ name, ...rest }) => {
 
 trace(firstAndLastNames);
 
-const onlyBands = map(rockers)(({ band }) => band);
+const onlyBands = map(rockers)(({ band }, index) => {
+  // add index like .map
+  return `${band}-${index}`;
+});
 
 trace(onlyBands);
+
+// this works too
+// mapRockers will always use the rockers array.
+const mapRockers = map(rockers);
+
+const names = mapRockers(({ name }) => name);
+
+trace(names);
 
 const addGenres = map(rockers)(rocker => {
   const { deceased, occupation, ...rest } = rocker;
