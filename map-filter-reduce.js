@@ -97,8 +97,10 @@ trace(onlyBands);
 const mapRockers = map(rockers);
 
 const names = mapRockers(({ name }) => name);
+const bands = mapRockers(({ band }) => band);
 
 trace(names);
+trace(bands);
 
 const addGenres = map(rockers)(rocker => {
   const { deceased, occupation, ...rest } = rocker;
